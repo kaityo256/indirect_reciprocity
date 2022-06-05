@@ -3,6 +3,7 @@ from collections import defaultdict
 
 class Player:
     def __init__(self) -> None:
+        self.index = 0
         self.k = 0         # 戦略値
         self.score = 0     # イメージスコア
         self.fitness = 0.0 # 適合度
@@ -12,6 +13,7 @@ def one_step(b,c,players):
     donor, recipient = random.sample(players, 2)
     # もしRecipientのイメージスコアがDonorの戦略値より大きければDonorは協力する
     if donor.k <= recipient.score:
+        # 協力
         # Donorはcだけコストを払う
         donor.fitness -= c
         # Recipientはbだけ報酬を得る
@@ -19,6 +21,7 @@ def one_step(b,c,players):
         # Donorのイメージスコアを増やす(最大値 5)
         donor.score = min(donor.score+1, 5)
     else:
+        # 非協力
         # Donorのイメージスコアをへらす(最小値 -5)
         donor.score = max(donor.score-1, -5)
         # fitnessの変更はなし
@@ -48,10 +51,9 @@ def one_generation(players):
     for i in range(-5,7):
         fitness_list[i] = round(fitness_list[i]/total_fitness * n)
 
-    # 切り捨てによる誤差を修正 (足りない分は最大勢力に割り振る)
+    # 四捨五入による誤差を修正 (最大勢力で調整)
     max_k = max(fitness_list, key=fitness_list.get)
     n_sum = sum(fitness_list.values())
-    print(n_sum)
     fitness_list[max_k] += (n-n_sum)
  
     # 次の世代の戦略値のリストを作る
@@ -70,12 +72,13 @@ def one_generation(players):
 
 if __name__ == '__main__':
     n = 100 # プレイヤー数
-    random.seed(4)
+    random.seed(0)
     players = []
-    for _ in range(n):
+    for i in range(n):
         p = Player()
+        p.index = i
         p.k = random.randint(-5,6) # 最初の世代の戦略値kはランダムに決める
         players.append(p)
-    for _ in range(100):
+    for _ in range(4):
         print("------------")
         one_generation(players)
