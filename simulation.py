@@ -75,7 +75,6 @@ def one_generation(m, b, c, players):
 
 
 # メイン関数(ここから実行される)
-
 def main():
     n = 100  # プレイヤー数
     m = 125  # 1世代あたりの試行回数
