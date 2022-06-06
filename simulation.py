@@ -75,16 +75,16 @@ def one_generation(m, b, c, players):
 
 
 # メイン関数(ここから実行される)
-if __name__ == '__main__':
+
+def main():
     n = 100  # プレイヤー数
-    m = 1000  # 1世代あたりの試行回数
+    m = 125  # 1世代あたりの試行回数
     b = 1.0  # Donorが協力を選んだときにRecipientが得る報酬
     c = 0.1  # Donorが協力を選んだときにDonorが払うコスト
 
     players = []
     for i in range(n):
         p = Player()
-        p.index = i
         p.k = random.randint(-5, 6)  # 最初の世代の戦略値kはランダムに決める
         players.append(p)
 
@@ -99,3 +99,7 @@ if __name__ == '__main__':
 
     for i in range(-5, 7):
         print(i, k_p[i])
+
+
+if __name__ == '__main__':
+    main()
