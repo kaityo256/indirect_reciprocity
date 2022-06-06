@@ -77,7 +77,7 @@ def one_generation(m, b, c, players):
 # メイン関数(ここから実行される)
 if __name__ == '__main__':
     n = 100  # プレイヤー数
-    m = 500  # 1世代あたりの試行回数
+    m = 1000  # 1世代あたりの試行回数
     b = 1.0  # Donorが協力を選んだときにRecipientが得る報酬
     c = 0.1  # Donorが協力を選んだときにDonorが払うコスト
 
